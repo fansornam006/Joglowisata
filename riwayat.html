@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Riwayat Pesanan</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+</head>
+
+<body class="bg-light">
+
+<div class="container py-5">
+
+    <h2 class="mb-4">Riwayat Pesanan</h2>
+
+    <table class="table table-bordered table-striped">
+        <thead class="table-dark">
+            <tr>
+                <th>Paket</th>
+                <th>Durasi</th>
+                <th>Jumlah</th>
+                <th>Total</th>
+                <th>Waktu</th>
+            </tr>
+        </thead>
+
+        <tbody id="tabelData"></tbody>
+    </table>
+
+    <button class="btn btn-danger" onclick="hapus()">Hapus Semua</button>
+
+</div>
+
+<script>
+function loadData() {
+    let data = JSON.parse(localStorage.getItem("pesanan")) || [];
+    let tabel = document.getElementById("tabelData");
+
+    tabel.innerHTML = "";
+
+    data.forEach(item => {
+        tabel.innerHTML += `
+            <tr>
+                <td>${item.paket}</td>
+                <td>${item.durasi}</td>
+                <td>${item.jumlah}</td>
+                <td>Rp ${item.total}</td>
+                <td>${item.waktu}</td>
+            </tr>
+        `;
+    });
+}
+
+function hapus() {
+    localStorage.removeItem("pesanan");
+    loadData();
+}
+
+loadData();
+</script>
+
+</body>
+</html>
